@@ -1,19 +1,51 @@
 package com.app.interviewtask.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
+import java.io.File;
+import java.util.Objects;
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
 public class Image {
-
+    @Id
+    @GeneratedValue
     private Long id;
     private String url;
-    private String muiltpart;
+    private String filename;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "collectionImages_id")
+    private CollectionImages collectionImages;
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "id=" + id +
+                ", url='" + url + '\'' +
+                ", filename='" + filename + '\'' +
+                ", collectionsImages_id" + collectionImages.getId() + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Image image = (Image) o;
+        return Objects.equals(id, image.id) &&
+                Objects.equals(url, image.url) &&
+                Objects.equals(filename, image.filename);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, url, filename);
+    }
 }
