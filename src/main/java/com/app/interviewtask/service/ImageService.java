@@ -14,6 +14,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -62,8 +63,8 @@ public class ImageService {
     public Image findById(Long id) {
         try {
             Image image = imageRepository.findById(id).orElseThrow(NullPointerException::new);
-/*            Desktop desktop = Desktop.getDesktop();
-            desktop.open(new File(image.getFilename()));*/
+            Desktop desktop = Desktop.getDesktop();
+            desktop.open(new File(image.getFilename()));
             return image;
         } catch (Exception e) {
             e.printStackTrace();

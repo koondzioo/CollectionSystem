@@ -17,5 +17,6 @@ public class Text {
     @Id
     @GeneratedValue
     private Long id;
-    private String text;
+    private String filename;
+    private String url;
 }
