@@ -21,6 +21,11 @@ public class CollectionImages {
     private Long id;
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "collectionImages")
     private List<Image> imageList;
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
 
     public Long getId() {
         return id;

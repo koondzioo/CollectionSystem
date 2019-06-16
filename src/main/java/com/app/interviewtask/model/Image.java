@@ -1,11 +1,8 @@
 package com.app.interviewtask.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
 import javax.persistence.*;
-import java.io.File;
 import java.util.Objects;
 
 @Builder
