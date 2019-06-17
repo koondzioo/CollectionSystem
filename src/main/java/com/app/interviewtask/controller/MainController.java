@@ -1,11 +1,14 @@
 package com.app.interviewtask.controller;
 
-import com.app.interviewtask.model.CollectionImages;
-import com.app.interviewtask.model.Image;
-import com.app.interviewtask.model.Text;
+import com.app.interviewtask.dto.CollectionImagesDto;
+import com.app.interviewtask.dto.ImageDto;
+import com.app.interviewtask.dto.TextDto;
 import com.app.interviewtask.service.CollectionsImagesService;
 import com.app.interviewtask.service.ImageService;
 import com.app.interviewtask.service.TextService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,38 +28,39 @@ public class MainController {
     }
 
     @PostMapping("/images")
-    public List<Image> downloadImagesFromURL(@RequestBody String url) {
-        return imageService.saveImages(url);
+    public ResponseEntity<List<ImageDto>> downloadImagesFromURL(RequestEntity<String> requestEntity) {
+        return new ResponseEntity<>(imageService.saveImages(requestEntity.getBody()), HttpStatus.OK);
+        // return imageService.saveImages(url);
     }
 
     @GetMapping("/images/{id}")
-    public Image getImage(@PathVariable Long id) {
-        return imageService.findById(id);
+    public ResponseEntity<ImageDto> getImage(@PathVariable Long id) {
+        return ResponseEntity.ok(imageService.findById(id));
     }
 
     @GetMapping("/images")
-    public List<Image> getAllImages() {
-        return imageService.findAll();
+    public ResponseEntity<List<ImageDto>> getAllImages() {
+        return ResponseEntity.ok(imageService.findAll());
     }
 
     @GetMapping("/collectionImages")
-    public List<CollectionImages> getAllCollectionImages() {
-        return collectionsImagesService.findAll();
+    public ResponseEntity<List<CollectionImagesDto>> getAllCollectionImages() {
+        return ResponseEntity.ok(collectionsImagesService.findAll());
     }
 
     @PostMapping("/text")
-    public Text downloadTextFromURL(@RequestBody String url) {
-        return textService.saveText(url);
+    public ResponseEntity<TextDto> downloadTextFromURL(RequestEntity<String> requestEntity) {
+        return new ResponseEntity<>(textService.saveText(requestEntity.getBody()), HttpStatus.OK);
     }
 
     @GetMapping("/text/{id}")
-    public Text getText(@PathVariable Long id) {
-        return textService.findById(id);
+    public ResponseEntity<TextDto> getText(@PathVariable Long id) {
+        return ResponseEntity.ok(textService.findById(id));
     }
 
     @GetMapping("/text")
-    public List<Text> getAllTexts(){
-        return textService.findAll();
+    public ResponseEntity<List<TextDto>> getAllTexts() {
+        return ResponseEntity.ok(textService.findAll());
     }
 
 }
