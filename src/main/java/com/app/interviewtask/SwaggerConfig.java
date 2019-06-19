@@ -23,7 +23,7 @@ public class SwaggerConfig {
                 .build();
     }
 
-    private ApiInfo apiInfo(){
+    private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("APP INTERVIEW")
                 .description("SIMPLE REST APPLICATION")

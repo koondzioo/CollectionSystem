@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.awt.*;
 import java.io.File;
+import java.net.URI;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -23,6 +24,8 @@ public class TextService {
 
     private TextRepository textRepository;
     private ModelMapper modelMapper;
+    private String IMG_ROOT = "files/text/";
+    //private String IMG_ROOT = "C://xxx///texts";
 
     public TextService(TextRepository textRepository, ModelMapper modelMapper) {
         this.textRepository = textRepository;
@@ -31,8 +34,9 @@ public class TextService {
 
     public TextDto saveText(String url) {
         try {
+            System.out.println(System.getProperty("user.dir"));
             Document doc = Jsoup.connect(url).get();
-            File file = new File("C:/xxx/" + url.replaceAll("[^a-zA-Z^]", "") + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + ".txt");
+            File file = new File(IMG_ROOT + url.replaceAll("[^a-zA-Z^]", "") + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd-HH-mm-ss")) + ".txt");
             FileUtils.writeStringToFile(file, doc.text());
             return modelMapper.fromTextToTextDto(textRepository.save(Text.builder().url(url).filename(file.toString()).build()));
         } catch (Exception e) {
@@ -44,10 +48,9 @@ public class TextService {
     public TextDto findById(Long id) {
         try {
             Text text = textRepository.findById(id).orElseThrow(NullPointerException::new);
-            Desktop desktop = Desktop.getDesktop();
-            desktop.open(new File(text.getFilename()));
             return modelMapper.fromTextToTextDto(text);
         } catch (Exception e) {
+            e.printStackTrace();
             throw new MyException("FIND TEXT BY ID EXCEPTION");
         }
     }
