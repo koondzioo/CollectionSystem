@@ -10,7 +10,7 @@ services:
         MYSQL_DATABASE: inter_2
     restart: always
   interviewtask-app:
-    image: springboot-interview-app
+    image: koondzioo/springboot-interview-app
     container_name: springboot-interview-app
     build:
       context: ./
