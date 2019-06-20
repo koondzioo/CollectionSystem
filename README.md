@@ -46,8 +46,10 @@ Odpowiednia architektura systemu i design API są ważniejsze niż dogłębna im
 * Selenium
 
 # Run
-* mvn clean install
-* docker-compose up --build
+
+ <b>Problem z docker-compose uruchomienie mysql, podwójne wpisanie docker-compose up uruchamia aplikację (TODO)) </b>
+* docker-compose up
+
 
 # Endpoints
 
